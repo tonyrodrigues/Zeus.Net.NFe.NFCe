@@ -36,7 +36,7 @@ namespace NFe.Impressao.NFCe
     public class ConfiguracaoDanfeNfce : ConfiguracaoDanfe
     {
 
-        public ConfiguracaoDanfeNfce(NfceDetalheVendaNormal detalheVendaNormal, NfceDetalheVendaContigencia detalheVendaContigencia, string cIdToken, string csc, byte[] logomarca = null, bool imprimeDescontoItem = false)
+        public ConfiguracaoDanfeNfce(NfceDetalheVendaNormal detalheVendaNormal, NfceDetalheVendaContigencia detalheVendaContigencia, string cIdToken, string csc, byte[] logomarca = null)
         {
             DetalheVendaNormal = detalheVendaNormal;
             DetalheVendaContigencia = detalheVendaContigencia;
@@ -72,28 +72,5 @@ namespace NFe.Impressao.NFCe
         /// Código de Segurança do Contribuinte(antigo Token)
         /// </summary>
         public string CSC { get; set; }
-<<<<<<< HEAD
-=======
-
-        /// <summary>
-        /// Logomarca do emitente a ser impressa no DANFE da NFCe
-        /// </summary>
-        public byte[] Logomarca { get; set; }
-
-        /// <summary>
-        /// Retorna um objeto do tipo Image a partir da logo armazenada na propriedade Logomarca 
-        /// </summary>
-        /// <returns></returns>
-        public Image ObterLogo()
-        {
-            if (Logomarca == null)
-                return null;
-            var ms = new MemoryStream(Logomarca);
-            var image = Image.FromStream(ms);
-            return image;
-        }
-
-        public bool ImprimeDescontoItem { get; set; }
->>>>>>> refs/remotes/origin/master
     }
 }
