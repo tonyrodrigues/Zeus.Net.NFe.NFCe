@@ -791,7 +791,7 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeInutilizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.RS, ModeloDocumento.NFCe, "https://nfce-homologacao.sefazrs.rs.gov.br/ws/nfeinutilizacao/nfeinutilizacao2.asmx"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.RS, ModeloDocumento.NFCe, "https://nfce-homologacao.sefazrs.rs.gov.br/ws/NfeConsulta/NfeConsulta2.asmx"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.RS, ModeloDocumento.NFCe, "https://nfce-homologacao.sefazrs.rs.gov.br/ws/NfeStatusServico/NfeStatusServico2.asmx"));
-                endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEventoCancelmento, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.RS, ModeloDocumento.NFCe, "https://nfce-homologacao.sefazrs.rs.gov.br/ws/recepcaoevento/recepcaoevento.asmx"));
+                endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEventoCancelmento, VersaoServico.ve100, TipoAmbiente.taHomologacao, emissao, Estado.RS, ModeloDocumento.NFCe, "https://nfce-homologacao.sefazrs.rs.gov.br/ws/recepcaoevento/recepcaoevento.asmx"));
 
                 #endregion
             }
@@ -824,7 +824,7 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeInutilizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.RS, ModeloDocumento.NFCe, "https://nfce.sefazrs.rs.gov.br/ws/nfeinutilizacao/nfeinutilizacao2.asmx"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.RS, ModeloDocumento.NFCe, "https://nfce.sefazrs.rs.gov.br/ws/NfeConsulta/NfeConsulta2.asmx"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.RS, ModeloDocumento.NFCe, "https://nfce.sefazrs.rs.gov.br/ws/NfeStatusServico/NfeStatusServico2.asmx"));
-                endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEventoCancelmento, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.RS, ModeloDocumento.NFCe, "https://nfce.sefazrs.rs.gov.br/ws/recepcaoevento/recepcaoevento.asmx"));
+                endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEventoCancelmento, VersaoServico.ve100, TipoAmbiente.taProducao, emissao, Estado.RS, ModeloDocumento.NFCe, "https://nfce.sefazrs.rs.gov.br/ws/recepcaoevento/recepcaoevento.asmx"));
 
                 #endregion
             }
@@ -1225,7 +1225,7 @@ namespace NFe.Servicos
         /// <param name="servico"></param>
         /// <param name="cfgServico"></param>
         /// <returns>Retorna um item do enum VersaoServico, com a versão do serviço</returns>
-        private static VersaoServico? ObterVersaoServico(ServicoNFe servico, ConfiguracaoServico cfgServico)
+        private static VersaoServico? ObterVersaoServico(this ServicoNFe servico, ConfiguracaoServico cfgServico)
         {
             switch (servico)
             {
@@ -1273,8 +1273,8 @@ namespace NFe.Servicos
         /// <returns></returns>
         private static string Erro(ServicoNFe servico, ConfiguracaoServico cfgServico)
         {
-            return "Serviço " + servico + ", versão " + Conversao.VersaoServicoParaString(servico, ObterVersaoServico(servico, cfgServico)) + ", não disponível para a UF " + cfgServico.cUF + ", no ambiente de " + Conversao.TpAmbParaString(cfgServico.tpAmb) +
-                   " para emissão tipo " + Conversao.TipoEmissaoParaString(cfgServico.tpEmis) + ", documento: " + Conversao.ModeloDocumentoParaString(cfgServico.ModeloDocumento) + "!";
+            return "Serviço " + servico + ", versão " + servico.VersaoServicoParaString(servico.ObterVersaoServico(cfgServico)) + ", não disponível para a UF " + cfgServico.cUF + ", no ambiente de " + cfgServico.tpAmb.TpAmbParaString() +
+                   " para emissão tipo " + cfgServico.tpEmis.TipoEmissaoParaString() + ", documento: " + cfgServico.ModeloDocumento.ModeloDocumentoParaString() + "!";
         }
 
         /// <summary>

@@ -207,7 +207,7 @@ namespace NFe.Servicos
         /// <returns>Retorna um objeto da classe RetornoNfeStatusServico com os dados status do serviço</returns>
         public RetornoNfeStatusServico NfeStatusServico()
         {
-            var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.NfeStatusServico, _cFgServico.VersaoNfeStatusServico);
+            var versaoServico = ServicoNFe.NfeStatusServico.VersaoServicoParaString(_cFgServico.VersaoNfeStatusServico);
 
             #region Cria o objeto wdsl para consulta
 
@@ -258,7 +258,7 @@ namespace NFe.Servicos
         /// <returns>Retorna um objeto da classe RetornoNfeConsultaProtocolo com os dados da Situação da NFe</returns>
         public RetornoNfeConsultaProtocolo NfeConsultaProtocolo(string chave)
         {
-            var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.NfeConsultaProtocolo, _cFgServico.VersaoNfeConsultaProtocolo);
+            var versaoServico = ServicoNFe.NfeConsultaProtocolo.VersaoServicoParaString(_cFgServico.VersaoNfeConsultaProtocolo);
 
             #region Cria o objeto wdsl para consulta
 
@@ -316,7 +316,7 @@ namespace NFe.Servicos
         /// <returns>Retorna um objeto da classe RetornoNfeInutilizacao com o retorno do serviço NfeInutilizacao</returns>
         public RetornoNfeInutilizacao NfeInutilizacao(string cnpj, int ano, ModeloDocumento modelo, int serie, int numeroInicial, int numeroFinal, string justificativa)
         {
-            var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.NfeInutilizacao, _cFgServico.VersaoNfeInutilizacao);
+            var versaoServico = ServicoNFe.NfeInutilizacao.VersaoServicoParaString(_cFgServico.VersaoNfeInutilizacao);
 
             #region Cria o objeto wdsl para consulta
 
@@ -399,7 +399,7 @@ namespace NFe.Servicos
                 throw new Exception(string.Format("Serviço {0} é inválido para o método {1}!\nServiços válidos: \n • {2}", servicoEvento,
                     MethodBase.GetCurrentMethod().Name, string.Join("\n • ", listaEventos.ToArray())));
             
-            var versaoServico = Conversao.VersaoServicoParaString(servicoEvento, _cFgServico.VersaoRecepcaoEventoCceCancelamento);
+            var versaoServico = servicoEvento.VersaoServicoParaString(_cFgServico.VersaoRecepcaoEventoCceCancelamento);
 
             #region Cria o objeto wdsl para consulta
 
@@ -482,7 +482,7 @@ namespace NFe.Servicos
         /// <returns>Retorna um objeto da classe RetornoRecepcaoEvento com o retorno do serviço RecepcaoEvento</returns>
         public RetornoRecepcaoEvento RecepcaoEventoCancelamento(int idlote, int sequenciaEvento, string protocoloAutorizacao, string chaveNFe, string justificativa, string cpfcnpj)
         {
-            var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.RecepcaoEventoCancelmento, _cFgServico.VersaoRecepcaoEventoCceCancelamento);
+            var versaoServico = ServicoNFe.RecepcaoEventoCancelmento.VersaoServicoParaString(_cFgServico.VersaoRecepcaoEventoCceCancelamento);
             var detEvento = new detEvento { nProt = protocoloAutorizacao, versao = versaoServico, xJust = justificativa };
             var infEvento = new infEventoEnv
             {
@@ -517,7 +517,7 @@ namespace NFe.Servicos
         /// <returns>Retorna um objeto da classe RetornoRecepcaoEvento com o retorno do serviço RecepcaoEvento</returns>
         public RetornoRecepcaoEvento RecepcaoEventoCartaCorrecao(int idlote, int sequenciaEvento, string chaveNFe, string correcao, string cpfcnpj)
         {
-            var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.RecepcaoEventoCartaCorrecao, _cFgServico.VersaoRecepcaoEventoCceCancelamento);
+            var versaoServico = ServicoNFe.RecepcaoEventoCartaCorrecao.VersaoServicoParaString(_cFgServico.VersaoRecepcaoEventoCceCancelamento);
             var detEvento = new detEvento { versao = versaoServico, xCorrecao = correcao, xJust = null};
             var infEvento = new infEventoEnv
             {
@@ -543,7 +543,7 @@ namespace NFe.Servicos
 
         public RetornoRecepcaoEvento RecepcaoEventoManifestacaoDestinatario(int idlote, int sequenciaEvento, string chaveNFe, TipoEventoManifestacaoDestinatario tipoEventoManifestacaoDestinatario, string cpfcnpj, string justificativa = null)
         {
-            var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.RecepcaoEventoManifestacaoDestinatario, _cFgServico.VersaoRecepcaoEventoCceCancelamento);
+            var versaoServico = ServicoNFe.RecepcaoEventoManifestacaoDestinatario.VersaoServicoParaString(_cFgServico.VersaoRecepcaoEventoCceCancelamento);
             var detEvento = new detEvento { versao = versaoServico, descEvento = tipoEventoManifestacaoDestinatario.Descricao(), xJust = justificativa };
             var infEvento = new infEventoEnv
             {
@@ -577,7 +577,7 @@ namespace NFe.Servicos
         /// <returns>Retorna um objeto da classe RetornoRecepcaoEvento com o retorno do serviço RecepcaoEvento</returns>
         public RetornoRecepcaoEvento RecepcaoEventoEpec(int idlote, int sequenciaEvento, Classes.NFe nfe, string veraplic)
         {
-            var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.RecepcaoEventoEpec, _cFgServico.VersaoRecepcaoEventoCceCancelamento);
+            var versaoServico = ServicoNFe.RecepcaoEventoEpec.VersaoServicoParaString(_cFgServico.VersaoRecepcaoEventoCceCancelamento);
 
             if (string.IsNullOrEmpty(nfe.infNFe.Id))
                 nfe.Assina().Valida();
@@ -625,14 +625,15 @@ namespace NFe.Servicos
 
         /// <summary>
         ///     Consulta a situação cadastral, com base na UF/Documento
-        ///     <para>O documento pode ser: CPF ou CNPJ. O serviço avaliará o tamanho da string passada e determinará se a coonsulta será por CPF ou por CNPJ</para>
+        ///     <para>O documento pode ser: IE, CNPJ ou CPF</para>
         /// </summary>
-        /// <param name="uf"></param>
-        /// <param name="documento"></param>
+        /// <param name="uf">Sigla da UF consultada, informar 'SU' para SUFRAMA</param>
+        /// <param name="tipoDocumento">Tipo de documento a ser consultado</param>
+        /// <param name="documento">Documento a ser consultado</param>
         /// <returns>Retorna um objeto da classe RetornoNfeConsultaCadastro com o retorno do serviço NfeConsultaCadastro</returns>
-        public RetornoNfeConsultaCadastro NfeConsultaCadastro(string uf, string documento)
+        public RetornoNfeConsultaCadastro NfeConsultaCadastro(string uf, ConsultaCadastroTipoDocumento tipoDocumento, string documento)
         {
-            var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.NfeConsultaCadastro, _cFgServico.VersaoNfeConsultaCadastro);
+            var versaoServico = ServicoNFe.NfeConsultaCadastro.VersaoServicoParaString(_cFgServico.VersaoNfeConsultaCadastro);
 
             #region Cria o objeto wdsl para consulta
 
@@ -654,10 +655,20 @@ namespace NFe.Servicos
                 infCons = new infConsEnv {UF = uf}
             };
 
-            if (documento.Length == 11)
-                pedConsulta.infCons.CPF = documento;
-            if (documento.Length > 11)
-                pedConsulta.infCons.CNPJ = documento;
+            switch (tipoDocumento)
+            {
+                case ConsultaCadastroTipoDocumento.Ie:
+                    pedConsulta.infCons.IE = documento;
+                    break;
+                case ConsultaCadastroTipoDocumento.Cnpj:
+                    pedConsulta.infCons.CNPJ = documento;
+                    break;
+                case ConsultaCadastroTipoDocumento.Cpf:
+                    pedConsulta.infCons.CPF = documento;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(tipoDocumento), tipoDocumento, null);
+            }
 
             #endregion
 
@@ -691,7 +702,7 @@ namespace NFe.Servicos
         /// <returns>Retorna um objeto da classe RetornoNfeDistDFeInt com os documentos de interesse do CNPJ/CPF pesquisado</returns>
         public RetornoNfeDistDFeInt NfeDistDFeInteresse(string ufAutor, string documento, string ultNSU, string nSU = "0")
         {
-            var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.NFeDistribuicaoDFe, _cFgServico.VersaoNFeDistribuicaoDFe);
+            var versaoServico = ServicoNFe.NFeDistribuicaoDFe.VersaoServicoParaString(_cFgServico.VersaoNFeDistribuicaoDFe);
 
             #region Cria o objeto wdsl para consulta
 
@@ -768,7 +779,7 @@ namespace NFe.Servicos
         /// <returns>Retorna um objeto da classe RetornoNfeRecepcao com com os dados do resultado da transmissão</returns>
         public RetornoNfeRecepcao NfeRecepcao(int idLote, List<Classes.NFe> nFes)
         {
-            var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.NfeRecepcao, _cFgServico.VersaoNfeRecepcao);
+            var versaoServico = ServicoNFe.NfeRecepcao.VersaoServicoParaString(_cFgServico.VersaoNfeRecepcao);
 
             #region Cria o objeto wdsl para consulta
 
@@ -819,7 +830,7 @@ namespace NFe.Servicos
         /// <returns>Retorna um objeto da classe RetornoNfeRetRecepcao com com os dados do processamento do lote</returns>
         public RetornoNfeRetRecepcao NfeRetRecepcao(string recibo)
         {
-            var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.NfeRetRecepcao, _cFgServico.VersaoNfeRetRecepcao);
+            var versaoServico = ServicoNFe.NfeRetRecepcao.VersaoServicoParaString(_cFgServico.VersaoNfeRetRecepcao);
 
             #region Cria o objeto wdsl para consulta
 
@@ -877,8 +888,7 @@ namespace NFe.Servicos
         /// <returns>Retorna um objeto da classe RetornoNFeAutorizacao com com os dados do resultado da transmissão</returns>
         public RetornoNFeAutorizacao NFeAutorizacao(int idLote, IndicadorSincronizacao indSinc, List<Classes.NFe> nFes, bool compactarMensagem = false)
         {
-            var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.NFeAutorizacao,
-                _cFgServico.VersaoNFeAutorizacao);
+            var versaoServico = ServicoNFe.NFeAutorizacao.VersaoServicoParaString(_cFgServico.VersaoNFeAutorizacao);
 
             #region Cria o objeto wdsl para consulta
 
@@ -937,8 +947,7 @@ namespace NFe.Servicos
         /// <returns>Retorna um objeto da classe RetornoNFeRetAutorizacao com com os dados do processamento do lote</returns>
         public RetornoNFeRetAutorizacao NFeRetAutorizacao(string recibo)
         {
-            var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.NFeRetAutorizacao,
-                _cFgServico.VersaoNFeRetAutorizacao);
+            var versaoServico = ServicoNFe.NFeRetAutorizacao.VersaoServicoParaString(_cFgServico.VersaoNFeRetAutorizacao);
 
             #region Cria o objeto wdsl para consulta
 
@@ -990,7 +999,7 @@ namespace NFe.Servicos
         /// <returns>Retorna um objeto da classe RetornoNfeConsultaProtocolo com os dados da Situação da NFe</returns>
         public RetornoNfeDownload NfeDownloadNf(string cnpj, List<string> chaves)
         {
-            var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.NfeDownloadNF, _cFgServico.VersaoNfeDownloadNF);
+            var versaoServico = ServicoNFe.NfeDownloadNF.VersaoServicoParaString(_cFgServico.VersaoNfeDownloadNF);
 
             #region Cria o objeto wdsl para envio do pedido de Download
 
@@ -1042,7 +1051,7 @@ namespace NFe.Servicos
 
         public RetornoAdmCscNFCe AdmCscNFCe(string raizCnpj, IdentificadorOperacaoCsc identificadorOperacaoCsc, string idCscASerRevogado = null, string codigoCscASerRevogado = null)
         {
-            var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.NfceAdministracaoCSC, _cFgServico.VersaoNfceAministracaoCSC);
+            var versaoServico = ServicoNFe.NfceAdministracaoCSC.VersaoServicoParaString(_cFgServico.VersaoNfceAministracaoCSC);
 
             #region Cria o objeto wdsl para envio do pedido de Download
 
